@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Data:
-    Name: Pistol
+    Name: Beretta 9mm
     FireRatePerMinute: 60
     Auto: 0
     MagCapacity: 10

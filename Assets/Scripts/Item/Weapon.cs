@@ -35,6 +35,8 @@ public class Weapon : MonoBehaviour
         }
 
         SelectWeapon(_currentWeaponIndex);
+
+        Debug.Log("Switching to " + _currentWeaponContainer.Data.Name);
     }
 
     private void SelectWeapon(int index)
@@ -49,18 +51,16 @@ public class Weapon : MonoBehaviour
     {
         if (_bulletLeft > 0)
         {
-            _bulletLeft--;
+            Debug.Log("Weapon Fired");
 
+            _bulletLeft--;
             Vector3 bulletDirection = transform.forward;
             float randomValue = Random.Range(0, 100);
             if (randomValue < 100f - _currentWeaponContainer.Data.AccuracyPercentage)
             {
                 Debug.Log("Missed");
+
                 bulletDirection += 0.25f * (transform.right + transform.up);
-            }
-            else
-            {
-                Debug.Log("Success");
             }
 
             BulletPool.Instance.TakeFromPool(transform.position, bulletDirection, _currentWeaponContainer.Data.Damage);

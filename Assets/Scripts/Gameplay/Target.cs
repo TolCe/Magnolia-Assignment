@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    [SerializeField] float _health;
+    [SerializeField] private TargetContainer _targetContainer;
+    private float _health;
     private bool _alive;
     [SerializeField] private MeshRenderer _meshRend;
 
@@ -12,6 +13,7 @@ public class Target : MonoBehaviour
     }
     private void OnEnable()
     {
+        SetTargetProperties();
         ChangeHealth(0);
     }
 
@@ -57,6 +59,11 @@ public class Target : MonoBehaviour
         ResetTarget();
         TargetPool.Instance.PutBackIntoPool(gameObject);
         GameEvents.Instance.TargetDestroyed();
+    }
+
+    public void SetTargetProperties()
+    {
+        _health = _targetContainer.Data.Health;
     }
 
     public void SetColor(Color color)
