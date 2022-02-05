@@ -16,6 +16,7 @@ MonoBehaviour:
     Name: Beretta 9mm
     FireRatePerMinute: 60
     Auto: 0
+    RecoilAmount: 3
     MagCapacity: 10
     AccuracyPercentage: 90
     Damage: 40

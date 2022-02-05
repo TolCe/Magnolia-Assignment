@@ -16,6 +16,7 @@ MonoBehaviour:
     Name: M4A1
     FireRatePerMinute: 400
     Auto: 1
+    RecoilAmount: 2
     MagCapacity: 30
     AccuracyPercentage: 60
     Damage: 5

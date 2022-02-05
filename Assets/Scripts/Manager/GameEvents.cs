@@ -35,6 +35,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public event Action<Quaternion, float> OnWeaponRecoiled;
+    public void WeaponRecoiled(Quaternion targetRotation, float time)
+    {
+        if (OnWeaponRecoiled != null)
+        {
+            OnWeaponRecoiled(targetRotation, time);
+        }
+    }
+
     public event Action OnWeaponCold;
     public void WeaponCold()
     {

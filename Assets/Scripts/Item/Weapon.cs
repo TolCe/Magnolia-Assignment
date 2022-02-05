@@ -66,9 +66,16 @@ public class Weapon : MonoBehaviour
 
             Bullet bullet = PoolController.Instance.TakeFromPool("Bullet", _currentWeaponContainer.Data.Bullet, null, transform.position).GetComponent<Bullet>();
             bullet.Ignite(bulletDirection, _currentWeaponContainer.Data.Damage);
+            Recoil(_currentWeaponContainer.Data.RecoilAmount, Mathf.Clamp(0.6f * (60f / _currentWeaponContainer.Data.FireRatePerMinute), 0, 0.02f));
             ModifyMag();
             StartCoroutine(Cooldown());
         }
+    }
+
+    private void Recoil(float amount, float time)
+    {
+        Quaternion targetAngle = Quaternion.Euler(Camera.main.transform.eulerAngles - amount * Vector3.right);
+        GameEvents.Instance.WeaponRecoiled(targetAngle, time);
     }
 
     private void Reload()

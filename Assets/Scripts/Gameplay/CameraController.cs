@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,9 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         GameEvents.Instance.OnNewEnemySpawned += LookAtTheEnemy;
+        //GameEvents.Instance.OnWeaponRecoiled += OnWeaponRecoiled;
     }
+
     private void Start()
     {
         _initPos = transform.position;
@@ -18,16 +21,30 @@ public class CameraController : MonoBehaviour
 
     public void LookAtTheEnemy(Transform target)
     {
-        StartCoroutine(Look(target));
+        Vector3 targetPos = target.position;
+        StartCoroutine(Look(Quaternion.LookRotation(targetPos - transform.position), _lookSpeed));
     }
 
-    private IEnumerator Look(Transform target)
+    private IEnumerator Look(Quaternion targetRotation, float speed)
     {
-        Vector3 targetPos = target.position;
-        while (Quaternion.Angle(Quaternion.LookRotation(targetPos - transform.position), transform.rotation) > 2f)
+        while (Quaternion.Angle(targetRotation, transform.rotation) > 0.001f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(targetPos - transform.position), _lookSpeed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    private void OnWeaponRecoiled(Quaternion targetRotation, float time)
+    {
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        StartCoroutine(RecoilCamera(targetRotation, time, angle / time));
+    }
+
+    private IEnumerator RecoilCamera(Quaternion targetRotation, float time, float speed)
+    {
+        Quaternion initRotation = transform.rotation;
+        StartCoroutine(Look(targetRotation, speed));
+        yield return new WaitForSeconds(time);
+        StartCoroutine(Look(initRotation, speed * 2f));
     }
 }
