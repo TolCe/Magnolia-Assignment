@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolObject
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _range;
@@ -13,9 +11,12 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
+        GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
+
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
     }
+
     private void Start()
     {
         _initPos = transform.position;
@@ -26,7 +27,7 @@ public class Bullet : MonoBehaviour
 
         if (Vector3.Magnitude(_initPos - transform.position) > _range)
         {
-            GameEvents.Instance.BulletDisposed(this);
+            ResetObject();
         }
     }
 
@@ -49,13 +50,20 @@ public class Bullet : MonoBehaviour
             GameEvents.Instance.BulletHit(_damage);
         }
 
-        GameEvents.Instance.BulletDisposed(this);
+        ResetObject();
     }
 
-    public void ResetBullet()
+    public void ResetObject()
     {
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
         _collider.enabled = false;
+
+        GameEvents.Instance.BulletDisposed("Bullet", gameObject);
+    }
+
+    public void OnLevelCompleted()
+    {
+        ResetObject();
     }
 }

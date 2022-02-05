@@ -35,6 +35,7 @@ public class Weapon : MonoBehaviour
         }
 
         SelectWeapon(_currentWeaponIndex);
+        GameEvents.Instance.WeaponCold();
 
         Debug.Log("Switching to " + _currentWeaponContainer.Data.Name);
     }
@@ -63,7 +64,8 @@ public class Weapon : MonoBehaviour
                 bulletDirection += 0.25f * (transform.right + transform.up);
             }
 
-            BulletPool.Instance.TakeFromPool(transform.position, bulletDirection, _currentWeaponContainer.Data.Damage);
+            Bullet bullet = PoolController.Instance.TakeFromPool("Bullet", _currentWeaponContainer.Data.Bullet, null, transform.position).GetComponent<Bullet>();
+            bullet.Ignite(bulletDirection, _currentWeaponContainer.Data.Damage);
             ModifyMag();
             StartCoroutine(Cooldown());
         }

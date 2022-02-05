@@ -20,3 +20,4 @@ MonoBehaviour:
     AccuracyPercentage: 90
     Damage: 40
     ReloadTime: 4
+    Bullet: {fileID: 1988366788222798069, guid: 7746115ee975bc74f947124ad678f6ac, type: 3}

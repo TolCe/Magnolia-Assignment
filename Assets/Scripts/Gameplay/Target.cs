@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class Target : MonoBehaviour, IPoolObject
 {
     [SerializeField] private TargetContainer _targetContainer;
     private float _health;
@@ -9,12 +9,18 @@ public class Target : MonoBehaviour
 
     private void Awake()
     {
+        GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
+
         _alive = true;
     }
     private void OnEnable()
     {
         SetTargetProperties();
         ChangeHealth(0);
+    }
+    private void OnDisable()
+    {
+        ResetObject();
     }
 
     public void ChangeHealth(float change)
@@ -56,8 +62,7 @@ public class Target : MonoBehaviour
         Debug.Log("A target was destroyed");
 
         _alive = false;
-        ResetTarget();
-        TargetPool.Instance.PutBackIntoPool(gameObject);
+        PoolController.Instance.PutBackIntoPool("Target", gameObject);
         GameEvents.Instance.TargetDestroyed();
     }
 
@@ -73,9 +78,14 @@ public class Target : MonoBehaviour
         _meshRend.material.color = targetColor;
     }
 
-    public void ResetTarget()
+    public void ResetObject()
     {
         _alive = true;
         _health = 100;
+    }
+
+    public void OnLevelCompleted()
+    {
+        ResetObject();
     }
 }

@@ -80,12 +80,12 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public event Action<Bullet> OnBulletDisposed;
-    public void BulletDisposed(Bullet bullet)
+    public event Action<string, GameObject> OnBulletDisposed;
+    public void BulletDisposed(string name, GameObject obj)
     {
         if (OnBulletDisposed != null)
         {
-            OnBulletDisposed(bullet);
+            OnBulletDisposed(name, obj);
         }
     }
 
@@ -140,6 +140,15 @@ public class GameEvents : MonoBehaviour
         if (OnTargetDestroyed != null)
         {
             OnTargetDestroyed();
+        }
+    }
+
+    public event Action<int> OnPlayerGainedKill;
+    public void PlayerGainedKill(int totalKill)
+    {
+        if (OnPlayerGainedKill != null)
+        {
+            OnPlayerGainedKill(totalKill);
         }
     }
 

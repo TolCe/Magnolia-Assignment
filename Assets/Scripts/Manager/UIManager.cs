@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,18 +19,20 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.Instance.OnLevelLoaded += WriteLevelIndex;
+        GameEvents.Instance.OnLevelLoaded += OnLevelLoaded;
         GameEvents.Instance.OnWeaponSelected += WriteWeaponName;
         GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
         GameEvents.Instance.OnMagModified += WriteMagSize;
         GameEvents.Instance.OnTargetDamaged += ShowEnemyHealth;
     }
-    private void Start()
+
+    private void OnLevelLoaded(LevelVO levelVO, int levelIndex)
     {
-        OnLevelStart();
+        WriteLevelIndex(levelIndex);
+        ArrangeUIForStart();
     }
 
-    private void OnLevelStart()
+    private void ArrangeUIForStart()
     {
         foreach (var item in LevelElements)
         {
@@ -67,7 +70,7 @@ public class UIManager : MonoBehaviour
         ChangeText(MagText, magLeft + "/" + magSize);
     }
 
-    private void WriteLevelIndex(LevelVO levelVO, int levelIndex)
+    private void WriteLevelIndex(int levelIndex)
     {
         ChangeText(LevelIndexText, "Level " + (levelIndex + 1));
     }

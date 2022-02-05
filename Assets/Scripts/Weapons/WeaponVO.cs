@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+
+[System.Serializable]
 public class WeaponVO
 {
     public string Name;
@@ -8,4 +10,5 @@ public class WeaponVO
     public float AccuracyPercentage;
     public float Damage;
     public float ReloadTime;
+    public GameObject Bullet;
 }

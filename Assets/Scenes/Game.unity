@@ -1901,7 +1901,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2005422247}
   - component: {fileID: 2005422248}
-  - component: {fileID: 2005422249}
   m_Layer: 0
   m_Name: Pool
   m_TagString: Untagged
@@ -1933,19 +1932,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e540447efc9b4749a82a6d0e69a0ba3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 1988366788222798069, guid: 7746115ee975bc74f947124ad678f6ac, type: 3}
---- !u!114 &2005422249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2005422246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d8e3b63c09b6143b9b77c9c788551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2106008682

@@ -15,8 +15,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        GameEvents.Instance.LevelLoaded(_levelContainer.Levels[_levelIndexClamped], _currentlevelIndex);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        LoadLevel();
     }
 
     public void NextLevel()
@@ -39,11 +38,6 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(0);
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        GameEvents.Instance.LevelLoaded(_levelContainer.Levels[_levelIndexClamped], _currentlevelIndex);
     }
 }

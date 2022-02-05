@@ -10,18 +10,15 @@ public class InputController : MonoBehaviour
 
     private void Awake()
     {
+        GameEvents.Instance.OnLevelLoaded += OnLevelLoaded;
+        GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
         GameEvents.Instance.OnWeaponSelected += SetAutoInput;
         GameEvents.Instance.OnWeaponFired += LockTrigger;
         GameEvents.Instance.OnMagEmpty += LockTrigger;
         GameEvents.Instance.OnWeaponCold += FreeTrigger;
         GameEvents.Instance.OnMagReloaded += OnReloaded;
-        GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
     }
 
-    private void Start()
-    {
-        _shouldGetInput = true;
-    }
     private void LateUpdate()
     {
         if (_shouldGetInput)
@@ -85,6 +82,11 @@ public class InputController : MonoBehaviour
     private void OnReloaded()
     {
         _reloadingWeapon = false;
+    }
+
+    private void OnLevelLoaded(LevelVO arg1, int arg2)
+    {
+        _shouldGetInput = true;
     }
 
     private void OnLevelCompleted()
