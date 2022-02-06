@@ -236,4 +236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetContainer: {fileID: 11400000, guid: dda9518ee601f0f41b91f77afe2ef750, type: 2}
-  _meshRend: {fileID: 4762434830920437333}
+  _meshRends:
+  - {fileID: 4762434830920437333}
+  - {fileID: 1732635692946233663}

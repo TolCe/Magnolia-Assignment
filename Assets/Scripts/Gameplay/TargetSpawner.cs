@@ -16,8 +16,8 @@ public class TargetSpawner : MonoBehaviour
 
     void Spawn(int totalKill)
     {
-        Target target = PoolController.Instance.TakeFromPool("Target", _currentLevelVO.TargetPrefab, _spawnpoints[totalKill % _spawnpoints.Length], Vector3.zero).GetComponent<Target>();
-        target.SetColor(_currentLevelVO.TargetColor);
+        Target target = PoolController.Instance.TakeFromPool(_currentLevelVO.TargetPrefab.name, _currentLevelVO.TargetPrefab, _spawnpoints[(totalKill + _currentLevelVO.StartSpawnIndex) % _spawnpoints.Length], Vector3.zero).GetComponent<Target>();
+        target.SetProperties(_currentLevelVO.TargetColor, _currentLevelVO.TargetPrefab.name);
         GameEvents.Instance.NewEnemySpawned(target.transform);
     }
 

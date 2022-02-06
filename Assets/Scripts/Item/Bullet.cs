@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour, IPoolObject
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private float _range;
+    private float _speed;
+    private float _range;
     private float _damage;
     private Vector3 _initPos;
     private Collider _collider;
@@ -21,22 +22,31 @@ public class Bullet : MonoBehaviour, IPoolObject
     {
         _initPos = transform.position;
     }
-    private void Update()
-    {
-        _rb.velocity = _speed * transform.forward;
 
-        if (Vector3.Magnitude(_initPos - transform.position) > _range)
-        {
-            ResetObject();
-        }
-    }
-
-    public void Ignite(Vector3 direction, float damage)
+    public void Ignite(Vector3 direction, float damage, float speed, float range)
     {
+        _speed = speed;
+        _range = range;
         _damage = damage;
         _collider.enabled = true;
         transform.LookAt(direction + transform.position);
-        //rb.AddForce(speed * transform.forward, ForceMode.Impulse);
+        StartCoroutine(BulletTravel());
+    }
+
+    private IEnumerator BulletTravel()
+    {
+        while (Vector3.Magnitude(_initPos - transform.position) < _range)
+        {
+            if (!_collider.enabled)
+            {
+                yield break;
+            }
+
+            _rb.velocity = _speed * transform.forward;
+            yield return new WaitForFixedUpdate();
+        }
+
+        ResetObject();
     }
 
     private void OnTriggerEnter(Collider other)

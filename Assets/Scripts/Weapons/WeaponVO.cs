@@ -8,6 +8,8 @@ public class WeaponVO
     public bool Auto;
     public float RecoilAmount;
     public int MagCapacity;
+    public float BulletSpeed;
+    public float Range;
     public float AccuracyPercentage;
     public float Damage;
     public float ReloadTime;

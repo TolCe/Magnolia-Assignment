@@ -18,6 +18,8 @@ MonoBehaviour:
     Auto: 0
     RecoilAmount: 3
     MagCapacity: 10
+    BulletSpeed: 10
+    Range: 50
     AccuracyPercentage: 90
     Damage: 40
     ReloadTime: 4

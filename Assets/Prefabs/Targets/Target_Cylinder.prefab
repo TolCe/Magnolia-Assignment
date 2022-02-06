@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetContainer: {fileID: 11400000, guid: dda9518ee601f0f41b91f77afe2ef750, type: 2}
-  _meshRend: {fileID: 4559607303589902621}
+  _meshRends:
+  - {fileID: 4559607303589902621}
 --- !u!1 &8412302956455732182
 GameObject:
   m_ObjectHideFlags: 0

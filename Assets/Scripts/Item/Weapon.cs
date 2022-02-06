@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
             }
 
             Bullet bullet = PoolController.Instance.TakeFromPool("Bullet", _currentWeaponContainer.Data.Bullet, null, transform.position).GetComponent<Bullet>();
-            bullet.Ignite(bulletDirection, _currentWeaponContainer.Data.Damage);
+            bullet.Ignite(bulletDirection, _currentWeaponContainer.Data.Damage, _currentWeaponContainer.Data.BulletSpeed, _currentWeaponContainer.Data.Range);
             Recoil(_currentWeaponContainer.Data.RecoilAmount, Mathf.Clamp(0.6f * (60f / _currentWeaponContainer.Data.FireRatePerMinute), 0, 0.02f));
             ModifyMag();
             StartCoroutine(Cooldown());

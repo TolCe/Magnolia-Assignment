@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Levels
   m_EditorClassIdentifier: 
   Levels:
-  - TargetPrefab: {fileID: 5728687183987455375, guid: 3988aae205cafa24db2670fa508be8f1, type: 3}
+  - StartSpawnIndex: 0
+    TargetPrefab: {fileID: 5728687183987455375, guid: 3988aae205cafa24db2670fa508be8f1, type: 3}
     TargetColor: {r: 1, g: 0, b: 0, a: 0}
-  - TargetPrefab: {fileID: 5728687183987455375, guid: 9659522f941619742a8e5fcae912b716, type: 3}
+  - StartSpawnIndex: 5
+    TargetPrefab: {fileID: 5728687183987455375, guid: 9659522f941619742a8e5fcae912b716, type: 3}
     TargetColor: {r: 1, g: 1, b: 0, a: 0}
-  - TargetPrefab: {fileID: 5728687183987455375, guid: 4b5510c050082b44fb79cb09e280a307, type: 3}
+  - StartSpawnIndex: 10
+    TargetPrefab: {fileID: 5728687183987455375, guid: 4b5510c050082b44fb79cb09e280a307, type: 3}
     TargetColor: {r: 0, g: 1, b: 0, a: 0}
-  - TargetPrefab: {fileID: 5728687183987455375, guid: e2b763cd7eda4a34c88569dd750454cf, type: 3}
+  - StartSpawnIndex: 15
+    TargetPrefab: {fileID: 5728687183987455375, guid: e2b763cd7eda4a34c88569dd750454cf, type: 3}
     TargetColor: {r: 1, g: 0, b: 1, a: 0}
-  - TargetPrefab: {fileID: 5728687183987455375, guid: 89d4d2448053af9499c2e7d6d5b2aadc, type: 3}
+  - StartSpawnIndex: 20
+    TargetPrefab: {fileID: 5728687183987455375, guid: 89d4d2448053af9499c2e7d6d5b2aadc, type: 3}
     TargetColor: {r: 0, g: 0, b: 1, a: 0}

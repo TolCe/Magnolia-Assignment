@@ -6,7 +6,8 @@ public class Target : MonoBehaviour, IPoolObject
     [SerializeField] private TargetContainer _targetContainer;
     private float _health;
     private bool _alive;
-    [SerializeField] private MeshRenderer _meshRend;
+    private string _poolName;
+    [SerializeField] private MeshRenderer[] _meshRends;
 
     private void Awake()
     {
@@ -86,15 +87,20 @@ public class Target : MonoBehaviour, IPoolObject
             yield return new WaitForFixedUpdate();
         }
 
-        PoolController.Instance.PutBackIntoPool("Target", gameObject);
+        PoolController.Instance.PutBackIntoPool(_poolName, gameObject);
         GameEvents.Instance.TargetDestroyed();
     }
 
-    public void SetColor(Color color)
+    public void SetProperties(Color color, string name)
     {
+        _poolName = name;
+
         Color targetColor = color;
         targetColor.a = 1;
-        _meshRend.material.color = targetColor;
+        foreach (var item in _meshRends)
+        {
+            item.material.color = targetColor;
+        }
     }
 
     public void ResetObject()
