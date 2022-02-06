@@ -80,6 +80,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public event Action<float> OnMagReloading;
+    public void MagReloading(float reloadPercentage)
+    {
+        if (OnMagReloading != null)
+        {
+            OnMagReloading(reloadPercentage);
+        }
+    }
+
     public event Action OnMagReloaded;
     public void MagReloaded()
     {

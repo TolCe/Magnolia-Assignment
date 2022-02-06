@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Target : MonoBehaviour, IPoolObject
@@ -23,7 +24,14 @@ public class Target : MonoBehaviour, IPoolObject
         ResetObject();
     }
 
-    public void ChangeHealth(float change)
+    public void GetHit(float damage, Vector3 hitPoint, Vector3 direction)
+    {
+        ParticleController hitParticle = PoolController.Instance.TakeFromPool(_targetContainer.Data.HitParticle.name, _targetContainer.Data.HitParticle, null, hitPoint).GetComponent<ParticleController>();
+        hitParticle.PlayParticle(_targetContainer.Data.HitParticle.name, direction);
+        ChangeHealth(-damage);
+    }
+
+    private void ChangeHealth(float change)
     {
         if (_alive)
         {
@@ -62,13 +70,24 @@ public class Target : MonoBehaviour, IPoolObject
         Debug.Log("A target was destroyed");
 
         _alive = false;
-        PoolController.Instance.PutBackIntoPool("Target", gameObject);
-        GameEvents.Instance.TargetDestroyed();
+        StartCoroutine(DieActions());
     }
 
     public void SetTargetProperties()
     {
         _health = _targetContainer.Data.Health;
+    }
+
+    private IEnumerator DieActions()
+    {
+        while (transform.position.y > -3f)
+        {
+            transform.position += 2 * Time.fixedDeltaTime * Vector3.down;
+            yield return new WaitForFixedUpdate();
+        }
+
+        PoolController.Instance.PutBackIntoPool("Target", gameObject);
+        GameEvents.Instance.TargetDestroyed();
     }
 
     public void SetColor(Color color)

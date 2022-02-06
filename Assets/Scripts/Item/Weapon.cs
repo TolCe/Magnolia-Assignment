@@ -91,6 +91,8 @@ public class Weapon : MonoBehaviour
         float timer = 0;
         while (timer < _currentWeaponContainer.Data.ReloadTime)
         {
+            GameEvents.Instance.MagReloading(timer / _currentWeaponContainer.Data.ReloadTime);
+
             if (timer % 1f < Time.fixedDeltaTime)
             {
                 Debug.Log("Reloading in " + Mathf.CeilToInt(_currentWeaponContainer.Data.ReloadTime - timer) + " seconds");

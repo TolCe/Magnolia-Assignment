@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour, IPoolObject
             Debug.Log("A target was hit");
 
             Target target = other.GetComponentInParent<Target>();
-            target.ChangeHealth(-_damage);
+            target.GetHit(_damage, transform.position, _initPos - transform.position);
             GameEvents.Instance.BulletHit(_damage);
         }
 

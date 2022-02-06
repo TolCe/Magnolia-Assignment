@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text WeaponNameText;
     [SerializeField] private Text LevelIndexText;
     [SerializeField] private Image EnemyHealthFillImage;
+    [SerializeField] private Text ReloadingText;
+    [SerializeField] private Image ReloadFillImage;
 
     private void Awake()
     {
@@ -24,6 +27,9 @@ public class UIManager : MonoBehaviour
         GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
         GameEvents.Instance.OnMagModified += WriteMagSize;
         GameEvents.Instance.OnTargetDamaged += ShowEnemyHealth;
+        GameEvents.Instance.OnMagReload += OnMagReload;
+        GameEvents.Instance.OnMagReloading += OnMagReloading;
+        GameEvents.Instance.OnMagReloaded += OnMagReloaded;
     }
 
     private void OnLevelLoaded(LevelVO levelVO, int levelIndex)
@@ -34,6 +40,9 @@ public class UIManager : MonoBehaviour
 
     private void ArrangeUIForStart()
     {
+        ReloadingText.gameObject.SetActive(false);
+        ReloadFillImage.gameObject.SetActive(false);
+
         foreach (var item in LevelElements)
         {
             item.gameObject.SetActive(true);
@@ -46,6 +55,24 @@ public class UIManager : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
+    }
+
+    private void OnMagReload()
+    {
+        ReloadingText.gameObject.SetActive(true);
+        ReloadFillImage.gameObject.SetActive(true);
+    }
+
+    private void OnMagReloading(float reloadRatio)
+    {
+        ReloadingText.text = "Reloading" + string.Concat(Enumerable.Repeat(".", Mathf.CeilToInt(reloadRatio * 9) % 3 + 1));
+        ReloadFillImage.fillAmount = reloadRatio;
+    }
+
+    private void OnMagReloaded()
+    {
+        ReloadingText.gameObject.SetActive(false);
+        ReloadFillImage.gameObject.SetActive(false);
     }
 
     private void OnLevelCompleted()

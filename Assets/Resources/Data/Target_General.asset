@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 778b3e1f07e4b9445b2117c6cd7a2dcb, type: 3}
-  m_Name: Target
+  m_Name: Target_General
   m_EditorClassIdentifier: 
   Data:
     Health: 100
+    HitParticle: {fileID: 5310431302185210222, guid: 3e9af69eb6f08c844be9cdd78345efbb, type: 3}
