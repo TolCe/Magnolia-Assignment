@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void WriteWeaponName(bool isAuto, string name)
+    private void WriteWeaponName(bool isAuto, string name, int index)
     {
         ChangeText(WeaponNameText, name);
     }

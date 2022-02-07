@@ -5,6 +5,7 @@ public class InputController : MonoBehaviour
 {
     private bool _shouldGetInput;
     private bool _shouldAutoFire;
+    private bool _canReload;
     private bool _canPressTrigger;
     private bool _reloadingWeapon;
 
@@ -12,7 +13,7 @@ public class InputController : MonoBehaviour
     {
         GameEvents.Instance.OnLevelLoaded += OnLevelLoaded;
         GameEvents.Instance.OnLevelCompleted += OnLevelCompleted;
-        GameEvents.Instance.OnWeaponSelected += SetAutoInput;
+        GameEvents.Instance.OnWeaponSelected += OnWeaponSelected;
         GameEvents.Instance.OnWeaponFired += LockTrigger;
         GameEvents.Instance.OnMagEmpty += LockTrigger;
         GameEvents.Instance.OnWeaponCold += FreeTrigger;
@@ -42,7 +43,7 @@ public class InputController : MonoBehaviour
                         }
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R) && _canReload)
                 {
                     Reloading();
                     GameEvents.Instance.MagReload();
@@ -59,13 +60,15 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private void SetAutoInput(bool isAuto, string name)
+    private void OnWeaponSelected(bool isAuto, string name, int index)
     {
+        _canReload = false;
         _shouldAutoFire = isAuto;
     }
 
     private void LockTrigger()
     {
+        _canReload = true;
         _canPressTrigger = false;
     }
 
@@ -82,6 +85,7 @@ public class InputController : MonoBehaviour
     private void OnReloaded()
     {
         _reloadingWeapon = false;
+        _canReload = false;
     }
 
     private void OnLevelLoaded(LevelVO arg1, int arg2)

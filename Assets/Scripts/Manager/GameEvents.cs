@@ -116,12 +116,12 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public event Action<bool, string> OnWeaponSelected;
-    public void WeaponSelected(bool isAuto, string name)
+    public event Action<bool, string, int> OnWeaponSelected;
+    public void WeaponSelected(bool isAuto, string name, int index)
     {
         if (OnWeaponSelected != null)
         {
-            OnWeaponSelected(isAuto, name);
+            OnWeaponSelected(isAuto, name, index);
         }
     }
 
